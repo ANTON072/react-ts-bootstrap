@@ -1,26 +1,18 @@
 /**
  * ローカル開発用 webpack 設定
  */
-const webpack = require("webpack")
-const HtmlWebpackPlugin = require("html-webpack-plugin")
+const merge = require("webpack-merge")
+const common = require("./webpack.common.js")
 const path = require("path")
-const Dotenv = require("dotenv-webpack")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+const webpack = require("webpack")
 
 const output = "public"
 
-module.exports = {
+module.exports = merge(common, {
   mode: "development",
-  entry: ["./src/index.tsx"],
   output: {
-    filename: "js/[name].[hash].js",
-    chunkFilename: "js/[id].[hash].js",
-    publicPath: "/",
     path: path.resolve(__dirname, output),
-  },
-  optimization: {
-    splitChunks: {
-      chunks: "all",
-    },
   },
   module: {
     rules: [
@@ -48,29 +40,9 @@ module.exports = {
           },
         ],
       },
-      {
-        test: /\.(png|jpg|gif|svg)$/i,
-        use: [
-          {
-            loader: "url-loader",
-            options: {
-              limit: 8192,
-              name: "../img/[hash].[ext]",
-              outputPath: "img",
-              publicPath: "./",
-              fallback: "file-loader",
-            },
-          },
-        ],
-      },
     ],
   },
-  resolve: {
-    modules: ["./node_modules", "./src"],
-    extensions: [".ts", ".tsx", ".js", ".json"],
-  },
   plugins: [
-    new Dotenv(),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),
@@ -81,4 +53,4 @@ module.exports = {
     historyApiFallback: true,
     hot: true,
   },
-}
+})

@@ -1,27 +1,20 @@
 /**
  * 本番用 webpack 設定
  */
+const merge = require("webpack-merge")
+const common = require("./webpack.common.js")
+const path = require("path")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const webpack = require("webpack")
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const CopyWebpackPlugin = require("copy-webpack-plugin")
-const Dotenv = require("dotenv-webpack")
-const path = require("path")
 
 const output = "build"
 
-module.exports = {
+module.exports = merge(common, {
   mode: "production",
-  entry: ["./src/index.tsx"],
   output: {
-    filename: "js/[name].[hash].js",
-    chunkFilename: "js/[id].[hash].js",
-    publicPath: "/",
     path: path.resolve(__dirname, output),
-  },
-  optimization: {
-    splitChunks: {
-      chunks: "all",
-    },
   },
   module: {
     rules: [
@@ -40,29 +33,9 @@ module.exports = {
           },
         ],
       },
-      {
-        test: /\.(png|jpg|gif|svg)$/i,
-        use: [
-          {
-            loader: "url-loader",
-            options: {
-              limit: 8192,
-              name: "../img/[hash].[ext]",
-              outputPath: "img",
-              publicPath: "./",
-              fallback: "file-loader",
-            },
-          },
-        ],
-      },
     ],
   },
-  resolve: {
-    modules: ["./node_modules", "./src"],
-    extensions: [".ts", ".tsx", ".js", ".json"],
-  },
   plugins: [
-    new Dotenv(),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),
@@ -72,4 +45,4 @@ module.exports = {
     ]),
   ],
   performance: { hints: false },
-}
+})
