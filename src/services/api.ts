@@ -62,12 +62,12 @@ class Api {
   constructor() {
     // トークンなしクライアント
     this._client = createClient({
-      baseURL: process.env.REACT_APP_API_BASE_URL,
+      baseURL: process.env.API_BASE_URL,
       timeout: 5000,
     })
     // トークンありクライアント
     this._authClient = createClient({
-      baseURL: process.env.REACT_APP_API_BASE_URL,
+      baseURL: process.env.API_BASE_URL,
       timeout: 5000,
     })
   }
