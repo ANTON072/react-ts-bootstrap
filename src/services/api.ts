@@ -63,12 +63,12 @@ class Api {
   constructor() {
     // トークンなしクライアント
     this._client = createClient({
-      baseURL: process.env.API_BASE_URL,
+      baseURL: process.env.API_URL,
       timeout: APP_SETTINGS.axiosTimeout,
     })
     // トークンありクライアント
     this._authClient = createClient({
-      baseURL: process.env.API_BASE_URL,
+      baseURL: process.env.API_URL,
       timeout: APP_SETTINGS.axiosTimeout,
     })
   }

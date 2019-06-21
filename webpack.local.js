@@ -43,6 +43,10 @@ module.exports = merge(common, {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      "process.env.APP_DEBUG": JSON.stringify(process.env.APP_DEBUG),
+      "process.env.API_URL": JSON.stringify(process.env.API_URL),
+    }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),
