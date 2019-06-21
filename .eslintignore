@@ -1,3 +1,5 @@
 webpack.config.dev.js
 webpack.config.prod.js
 babel.config.js
+*.test.ts
+jest.config.js
