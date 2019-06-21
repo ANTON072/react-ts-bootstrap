@@ -6,10 +6,9 @@ import { applyMiddleware, createStore } from "redux"
 import createSagaMiddleware from "redux-saga"
 
 // store
-import reducer, { initialState } from "./store/reducers"
-import rootSaga from "./store/effects"
-
-import App from "./components/App"
+import App from "components/App"
+import reducer, { initialState } from "store/reducers"
+import rootSaga from "store/effects"
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -29,3 +28,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root"),
 )
+
+export default store

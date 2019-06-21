@@ -2,20 +2,14 @@
  * グローバルスタイル
  */
 import styled, { createGlobalStyle } from "styled-components"
-
-// デザインカンプの定義幅
-const DESIGN_WIDTH = 750
-// Retinaのベースフォントサイズ
-const DESIGN_BASE_FONT_SIZE = 20
-// デザインカンプとフォントサイズの比率
-const FONT_RATIO = DESIGN_WIDTH / DESIGN_BASE_FONT_SIZE
+import { UI } from "enums"
 
 /**
  * remのベースフォントサイズを返す
  * @param innerWidth ウインドウ幅
  */
 const getBaseFontSize = (innerWidth: number) => {
-  return innerWidth / FONT_RATIO
+  return innerWidth / UI.fontRatio
 }
 
 /**
@@ -181,7 +175,7 @@ export const GlobalStyle = createGlobalStyle`
  * Wrapper
  */
 export const Wrapper = styled.main`
-  width: ${FONT_RATIO}rem;
+  width: ${UI.fontRatio}rem;
   height: 100%;
   margin-right: auto;
   margin-left: auto;
