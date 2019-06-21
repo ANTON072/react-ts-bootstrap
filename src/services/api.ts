@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios"
 import { toCamel, toSnake } from "utils/convertKeys"
 import _ from "lodash"
+import { API_ENDPOINT, APP_SETTINGS } from "enums"
 
 // 後からクライアントにトークンを追加する
 // https://github.com/axios/axios#config-defaults
@@ -63,12 +64,12 @@ class Api {
     // トークンなしクライアント
     this._client = createClient({
       baseURL: process.env.API_BASE_URL,
-      timeout: 5000,
+      timeout: APP_SETTINGS.axiosTimeout,
     })
     // トークンありクライアント
     this._authClient = createClient({
       baseURL: process.env.API_BASE_URL,
-      timeout: 5000,
+      timeout: APP_SETTINGS.axiosTimeout,
     })
   }
 
@@ -89,5 +90,5 @@ const api = new Api()
 export default api
 
 export const login = (params: { email: string; password: string }) => {
-  return api.client.post("/login", params)
+  return api.client.post(API_ENDPOINT.login, params)
 }

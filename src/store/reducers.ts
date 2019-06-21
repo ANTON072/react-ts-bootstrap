@@ -1,6 +1,9 @@
 import { ApplicationState, ApplicationAction } from "./types"
 
 export const initialState: ApplicationState = {
+  app: {
+    error: null,
+  },
   auth: {
     authToken: "",
   },
@@ -23,6 +26,12 @@ export const initialState: ApplicationState = {
 // eslint-disable-next-line consistent-return
 const reducer = (state = initialState, action: ApplicationAction) => {
   switch (action.type) {
+    case "appError": {
+      const draft = { ...state }
+      draft.app.error = action.payload
+
+      return { ...state, ...draft }
+    }
     case "loginInput": {
       const draft = { ...state }
       const { name, value } = action.payload

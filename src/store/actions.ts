@@ -1,6 +1,9 @@
 import { LocationState } from "history"
 import { AxiosError } from "axios"
 
+export const appError = (error: AxiosError) =>
+  ({ type: "appError", payload: error } as const)
+
 export const loginRequest = () =>
   ({
     type: "loginRequest",

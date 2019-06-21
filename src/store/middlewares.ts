@@ -1,6 +1,7 @@
 import { Dispatch, Middleware, MiddlewareAPI } from "redux"
 import _ from "lodash"
 import { ApplicationAction } from "./types"
+import { appError } from "./actions"
 
 export const errorsMiddleware: Middleware = <T>({
   dispatch,
@@ -9,7 +10,7 @@ MiddlewareAPI) => (next: Dispatch) => (action: any): ApplicationAction => {
   if (action.type) {
     const isFail = new RegExp("Fail", "g")
     if (action.type.match(isFail) && !_.isUndefined(action.error)) {
-      // 500以上エラーの場合
+      dispatch(appError(action.payload))
     }
   }
 

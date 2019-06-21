@@ -1,9 +1,14 @@
 import { ActionType } from "redux-actions-type"
+import { AxiosError } from "axios"
 import * as actions from "./actions"
 
 /**
  * State
  */
+
+export interface AppState {
+  error: AxiosError | null
+}
 
 export interface AuthState {
   authToken: string
@@ -27,6 +32,7 @@ export interface LoginPageState {
 }
 
 export interface ApplicationState {
+  app: AppState
   auth: AuthState
   pages: {
     login: LoginPageState

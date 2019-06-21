@@ -6,3 +6,11 @@ export enum UI {
   // デザインカンプとフォントサイズの比率
   fontRatio = designWidth / designBaseFontSize,
 }
+
+export enum APP_SETTINGS {
+  axiosTimeout = 5000,
+}
+
+export enum API_ENDPOINT {
+  login = "/login",
+}
