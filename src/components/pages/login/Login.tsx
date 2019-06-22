@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { LoginPageState } from "store/types"
+import ImgJpg from "components/shared/img/1.jpg"
 import * as S from "./styles"
 
 export interface Props extends LoginPageState {
@@ -22,6 +23,9 @@ const Login = (params: Props) => {
 
   return (
     <S.Wrapper>
+      <div>
+        <img src={ImgJpg} alt="" />
+      </div>
       <form onSubmit={handleSubmimt}>
         <div>
           <input

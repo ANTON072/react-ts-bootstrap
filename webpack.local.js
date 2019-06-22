@@ -9,7 +9,7 @@ const webpack = require("webpack")
 
 const output = "public"
 
-module.exports = merge(common, {
+const config = merge(common, {
   mode: "development",
   output: {
     path: path.resolve(__dirname, output),
@@ -42,19 +42,23 @@ module.exports = merge(common, {
       },
     ],
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      "process.env.APP_DEBUG": JSON.stringify(process.env.APP_DEBUG),
-      "process.env.API_URL": JSON.stringify(process.env.API_URL),
-    }),
-    new HtmlWebpackPlugin({
-      template: "./public/index.html",
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-  ],
   devServer: {
     contentBase: path.join(__dirname, "public"),
     historyApiFallback: true,
     hot: true,
   },
 })
+
+config.plugins = [
+  new webpack.DefinePlugin({
+    "process.env.APP_DEBUG": JSON.stringify(process.env.APP_DEBUG),
+    "process.env.API_URL": JSON.stringify(process.env.API_URL),
+  }),
+  new HtmlWebpackPlugin({
+    publicUrl: process.env.PUBLIC_URL,
+    template: "./public/index.html",
+  }),
+  new webpack.HotModuleReplacementPlugin(),
+]
+
+module.exports = config

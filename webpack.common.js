@@ -28,9 +28,8 @@ module.exports = {
             loader: "url-loader",
             options: {
               limit: 8192,
-              name: "../img/[hash].[ext]",
-              outputPath: "img",
-              publicPath: "./",
+              name: "img/[hash].[ext]",
+              publicPath: "/",
               fallback: "file-loader",
             },
           },
@@ -44,6 +43,7 @@ module.exports = {
       "process.env.API_URL": JSON.stringify(process.env.API_URL),
     }),
     new HtmlWebpackPlugin({
+      publicUrl: process.env.PUBLIC_URL,
       template: "./public/index.html",
     }),
     new CleanWebpackPlugin(),

@@ -4,3 +4,4 @@ babel.config.js
 *.test.ts
 jest.config.js
 webpack.*.js
+*.d.ts
