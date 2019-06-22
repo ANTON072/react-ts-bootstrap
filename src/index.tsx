@@ -2,7 +2,7 @@ import React from "react"
 import ReactDOM from "react-dom"
 import { Provider } from "react-redux"
 import { BrowserRouter as Router } from "react-router-dom"
-import { applyMiddleware, createStore } from "redux"
+import { applyMiddleware, createStore, compose } from "redux"
 import createSagaMiddleware from "redux-saga"
 import { errorsMiddleware } from "store/middlewares"
 import { composeWithDevTools } from "remote-redux-devtools"
@@ -14,10 +14,13 @@ import rootSaga from "store/effects"
 
 const sagaMiddleware = createSagaMiddleware()
 
+const composeEnhancers =
+  process.env.APP_DEBUG === "true" ? composeWithDevTools : compose
+
 const store = createStore(
   reducer,
   initialState,
-  composeWithDevTools(applyMiddleware(sagaMiddleware, errorsMiddleware)),
+  composeEnhancers(applyMiddleware(sagaMiddleware, errorsMiddleware)),
 )
 
 sagaMiddleware.run(rootSaga)
