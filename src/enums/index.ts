@@ -8,7 +8,11 @@ export enum UI {
 }
 
 export enum APP_SETTINGS {
+  // Axiosの設定
   axiosTimeout = 5000,
+  // ポーリングの設定
+  pollingInterval = 1000,
+  pollingTimeout = 5000,
 }
 
 export enum API_ENDPOINT {

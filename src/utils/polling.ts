@@ -1,4 +1,5 @@
 import { AxiosResponse } from "axios"
+import { APP_SETTINGS } from "enums"
 
 interface Params {
   asyncFunc: () => AxiosResponse
@@ -6,7 +7,11 @@ interface Params {
   interval: number
 }
 
-const polling = ({ asyncFunc, interval, timeout }: Params) => {
+const polling = ({
+  asyncFunc,
+  interval = APP_SETTINGS.pollingInterval,
+  timeout = APP_SETTINGS.pollingTimeout,
+}: Params) => {
   const endTime = Date.now() + timeout
   const checkCondition = async (
     resolve: (value?: AxiosResponse) => void,
