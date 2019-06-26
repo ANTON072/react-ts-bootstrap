@@ -1,38 +1,27 @@
-import { AxiosResponse } from "axios"
+import Axios, { AxiosResponse } from "axios"
 import { APP_SETTINGS } from "enums"
+import * as api from "services/api"
 
 interface Params {
-  asyncFunc: () => AxiosResponse
   timeout: number
   interval: number
+  asyncFunc: () => void
 }
 
-const polling = ({
-  asyncFunc,
-  interval = APP_SETTINGS.pollingInterval,
-  timeout = APP_SETTINGS.pollingTimeout,
-}: Params) => {
-  const endTime = Date.now() + timeout
-  const checkCondition = async (
-    resolve: (value?: AxiosResponse) => void,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    reject: (reason?: Error) => void,
-  ) => {
-    try {
-      const response = await asyncFunc()
-      if (response.status === 200) {
-        resolve(response)
-      } else if (response.status < 500 && Date.now() < endTime) {
-        setTimeout(checkCondition, interval, resolve, reject)
-      } else {
-        throw new Error("タイムアウトかネットワークエラーが発生")
-      }
-    } catch (error) {
-      reject(new Error(error))
-    }
-  }
-
-  return new Promise(checkCondition)
+const polling = <T>(params: Params) => {
+  // const { timeout, interval } = params
+  // const endTime = Date.now() + timeout
+  // const checkCondition = async (resolve: () => any, reject) => {
+  //   const result = await params.asyncFunc()
+  //   if (result) {
+  //     resolve(result)
+  //   } else if (Date.now() < endTime) {
+  //     setTimeout(checkCondition, interval, resolve, reject)
+  //   } else {
+  //     reject(new Error(`timed out for ${asyncFunc}`))
+  //   }
+  // }
+  // return new Promise(checkCondition)
 }
 
 export default polling
